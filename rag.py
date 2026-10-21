@@ -24,8 +24,12 @@ if not api_key:
 
 client = OpenAI(
     api_key=api_key,
-    base_url="https://api.groq.com/openai/v1"
+    base_url="https://api.groq.com/openai/v1",
+    timeout=30,
+    max_retries=1,
 )
+
+LLM_MODEL = "openai/gpt-oss-120b"
 
 PDF_PATH = "university.pdf"
 
@@ -343,7 +347,7 @@ def llm(query, context):
     ]
 
     response = client.chat.completions.create(
-        model="openai/gpt-oss-120b",
+        model=LLM_MODEL,
         temperature=0.2,
         messages=messages
     )
@@ -411,3 +415,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
