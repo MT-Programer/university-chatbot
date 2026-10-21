@@ -17,14 +17,14 @@ from langchain_chroma import Chroma
 
 dotenv.load_dotenv()
 
-api_key = os.getenv("GAP_GPT_KEY")
+api_key = os.getenv("GROQ_API_KEY")
 
 if not api_key:
-    raise ValueError("کلید GAP_GPT_KEY در فایل .env پیدا نشد.")
+    raise ValueError("کلید GROQ_API_KEY در فایل .env پیدا نشد.")
 
 client = OpenAI(
     api_key=api_key,
-    base_url="https://api.gapgpt.app/v1"
+    base_url="https://api.groq.com/openai/v1"
 )
 
 PDF_PATH = "university.pdf"
@@ -343,7 +343,7 @@ def llm(query, context):
     ]
 
     response = client.chat.completions.create(
-        model="gpt-4o",
+        model="openai/gpt-oss-20b",
         temperature=0.2,
         messages=messages
     )
