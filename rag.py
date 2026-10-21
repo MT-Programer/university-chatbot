@@ -343,7 +343,7 @@ def llm(query, context):
     ]
 
     response = client.chat.completions.create(
-        model="openai/gpt-oss-20b",
+        model="openai/gpt-oss-120b",
         temperature=0.2,
         messages=messages
     )
