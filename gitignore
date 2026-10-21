@@ -1,0 +1,8 @@
+.env
+.env.*
+!.env.example
+chroma_university_v2/
+__pycache__/
+*.py[cod]
+.venv/
+venv/
