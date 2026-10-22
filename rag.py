@@ -34,7 +34,7 @@ LLM_MODEL = "openai/gpt-oss-120b"
 PDF_PATH = "university.pdf"
 
 # مسیر جدید؛ داده‌های قدیمی را با ایندکس جدید مخلوط نمی‌کنیم.
-COLLECTION_NAME = "university_rules_v2"
+COLLECTION_NAME = "university_rules"
 PERSIST_DIRECTORY = "./chroma_university_v2"
 
 embedding_model = HuggingFaceEmbeddings(
@@ -165,7 +165,8 @@ def split_documents(documents):
                         metadata={
                             **doc.metadata,
                             "section": f"نیمسال {semester}",
-                            "semester": semester
+                            "semester": semester,
+                            "is_semester_table": True,
                         }
                     )
                 )
@@ -272,7 +273,7 @@ def retrieve_chunks(query, k=3):
 
     # برای سؤال درباره نیمسال‌ها، جدول اصلی را نیز اضافه می‌کنیم.
     semester_words = [
-        "نیمسال", "ترم", "واحدهای ترم",
+        "نیمسال", "نیم سال", "ترم", "واحدهای ترم",
         "دروس ترم", "دروس نیمسال"
     ]
 
