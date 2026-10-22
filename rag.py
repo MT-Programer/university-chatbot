@@ -29,13 +29,13 @@ client = OpenAI(
     max_retries=1,
 )
 
-LLM_MODEL = "openai/gpt-oss-120b"
+LLM_MODEL = "openai/gpt-oss-20b"
 
 PDF_PATH = "university.pdf"
 
 # مسیر جدید؛ داده‌های قدیمی را با ایندکس جدید مخلوط نمی‌کنیم.
-COLLECTION_NAME = "university_rules"
-PERSIST_DIRECTORY = "./chroma_university_v2"
+COLLECTION_NAME = "university_rules_v4"
+PERSIST_DIRECTORY = "./chroma_university_v4"
 
 embedding_model = HuggingFaceEmbeddings(
     model_name="intfloat/multilingual-e5-small",
@@ -98,6 +98,10 @@ def read_pdf_file(file_name):
         if "فهرست مطالب" in page_text[:500]:
             continue
 
+        # ادامه صفحات فهرست (بدون عنوان) با نقطه‌چین زیاد
+        if page_text.count("......") >= 3:
+            continue
+
         documents.append(
             Document(
                 page_content=page_text,
@@ -136,9 +140,11 @@ def split_documents(documents):
 
         # صفحه‌ای که جدول ترم‌بندی دروس را دارد
         if (
-            "جدول ترم" in text
-            and "تعداد ساعت" in text
-            and "نیمسال" in text
+            "تعداد ساعت" in text
+            and re.search(
+                r"2\s*-\s*6\s*-\s*[۱-۸1-8]+\s*-\s*نیمسال",
+                text
+            )
         ):
             parts = semester_pattern.split(text)
 
@@ -166,7 +172,7 @@ def split_documents(documents):
                             **doc.metadata,
                             "section": f"نیمسال {semester}",
                             "semester": semester,
-                            "is_semester_table": True,
+                            "is_semester_table": True
                         }
                     )
                 )
@@ -226,7 +232,7 @@ def index_documents(chunks):
         ids=ids
     )
 
-    print(f"تعداد Chunkهای ایندکس‌ شده: {len(documents)}")
+    print(f"تعداد Chunkهای ایندکس‌شده: {len(documents)}")
 
 
 # --------------------------------------------------
@@ -416,5 +422,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
