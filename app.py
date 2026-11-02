@@ -11,7 +11,7 @@ st.set_page_config(
 )
 
 # --------------------------------------------------
-# تم رسمی و بهینه‌شده برای موبایل (RTL واقعی)
+# تم رسمی (سرمه‌ای + طلایی)، راست‌چین و کاملاً رسپانسیو
 # --------------------------------------------------
 
 st.markdown(
@@ -28,125 +28,237 @@ st.markdown(
         --text: #1F2937;
     }
 
-    /* تنظیم فونت و جهت متن کلی */
-    html, body, .stApp {
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html, body, [data-testid="stAppViewContainer"], .stApp {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        overflow-x: hidden;
         font-family: 'Vazirmatn', Tahoma, sans-serif !important;
-        direction: rtl;
-        text-align: right;
-        background-color: var(--bg);
     }
 
-    /* اصلاح راست‌چین متن‌ها بدون دستکاری ساختار دکمه‌ها و آیکون‌ها */
-    p, li, label, input, textarea, h1, h2, h3, h4,
+    .stApp { background: var(--bg); }
+    p, li, label, input, textarea, button,
     [data-testid="stMarkdownContainer"] {
         font-family: 'Vazirmatn', Tahoma, sans-serif !important;
-        text-align: right !important;
-        direction: rtl !important;
+        text-align: right;
     }
 
-    /* کانتینر اصلی صفحه */
+    /* Main Container: Centered Layout */
+    [data-testid="stMain"] { min-width: 0; width: 100%; }
     [data-testid="stMainBlockContainer"] {
-        max-width: 800px !important;
-        padding: 1rem 1rem 6rem 1rem !important;
-        margin: 0 auto !important;
+        width: 100% !important;
+        max-width: 900px !important;
+        min-width: 0 !important;
+        margin-inline: auto !important;
+        padding: 1.5rem 1rem 7rem !important;
     }
 
-    /* هدر سامانه */
     .uni-header {
+        width: 100%;
+        min-width: 0;
         background: linear-gradient(135deg, var(--navy-dark), var(--navy));
         border-bottom: 4px solid var(--gold);
-        border-radius: 12px;
-        padding: 1.2rem;
-        margin-bottom: 1.2rem;
+        border-radius: 14px;
+        padding: 1.35rem 1.5rem;
+        margin: 0 0 1.25rem;
         color: #fff;
+        overflow-wrap: anywhere;
     }
     .uni-header h1 {
         color: #fff !important;
-        font-size: 1.3rem;
-        margin-bottom: .4rem;
+        font-size: clamp(1.1rem, 2.5vw, 1.55rem);
+        line-height: 1.7;
+        margin: 0 0 .35rem;
     }
     .uni-header p {
         color: #D8E1EE !important;
-        font-size: .88rem;
+        font-size: .92rem;
+        line-height: 1.9;
         margin: 0;
     }
 
-    /* پیام‌های چت */
+    /* Chat Messages */
     [data-testid="stChatMessage"] {
+        width: 100%;
+        min-width: 0;
         background: #fff;
         border: 1px solid var(--border);
-        border-radius: 12px;
-        padding: .8rem 1rem;
-        margin-bottom: .75rem;
+        border-radius: 14px;
+        padding: 1rem 1.1rem;
+        margin: 0 0 .85rem;
+        color: var(--text) !important;
+        overflow-wrap: anywhere;
+    }
+    [data-testid="stChatMessage"] * {
+        color: var(--text) !important;
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+    [data-testid="stChatMessage"] p,
+    [data-testid="stChatMessage"] li {
+        line-height: 1.95;
     }
 
-    /* اصلاح سایدبار بدون خراب کردن آیکون‌ها */
+    /* RTL Support for App Base & Chat */
+    [data-testid="stAppViewContainer"],
+    [data-testid="stMain"],
+    [data-testid="stMainBlockContainer"],
+    [data-testid="stChatMessage"],
+    [data-testid="stChatMessage"] [data-testid="stMarkdownContainer"],
+    [data-testid="stChatMessage"] p,
+    [data-testid="stChatMessage"] li {
+        direction: rtl !important;
+        text-align: right !important;
+    }
+
+    /* Sidebar RTL Fixes & Drawer Behavior */
     [data-testid="stSidebar"] {
-        background-color: #fff !important;
-        border-left: 2px solid var(--border);
+        direction: rtl !important;
+        right: 0 !important;
+        left: auto !important;
+        border-left: 0 !important;
+        border-right: 3px solid var(--gold) !important;
+        text-align: right !important;
+        background: #fff !important;
+    }
+    [data-testid="stSidebar"] > div:first-child {
+        direction: rtl !important;
+    }
+    [data-testid="stSidebar"] [data-testid="stMarkdownContainer"],
+    [data-testid="stSidebar"] .stMarkdown,
+    [data-testid="stSidebar"] p,
+    [data-testid="stSidebar"] li,
+    [data-testid="stSidebar"] h1,
+    [data-testid="stSidebar"] h2,
+    [data-testid="stSidebar"] h3,
+    [data-testid="stSidebar"] label,
+    [data-testid="stSidebar"] span {
+        direction: rtl !important;
+        text-align: right !important;
+        color: var(--text) !important;
+        font-family: 'Vazirmatn', Tahoma, sans-serif !important;
     }
 
-    /* تنظیم استایل دکمه‌ها */
+    /* Buttons Style */
     .stButton > button, .stDownloadButton > button {
         width: 100%;
-        min-height: 42px;
-        border-radius: 8px;
+        min-height: 44px;
+        height: auto;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        line-height: 1.7;
+        padding: .65rem .85rem;
         background: #fff;
         color: var(--navy) !important;
         border: 1px solid var(--navy);
+        border-radius: 10px;
         font-family: 'Vazirmatn', Tahoma, sans-serif !important;
     }
-    .stButton > button:hover {
+    .stButton > button:hover, .stDownloadButton > button:hover {
         background: var(--navy);
         color: #fff !important;
+        border-color: var(--navy);
     }
-    .stButton > button p { color: inherit !important; }
+    .stButton > button p, .stDownloadButton > button p { color: inherit !important; }
 
-    /* پانویس */
+    [data-testid="stAlert"] {
+        background: #EAF0F8 !important;
+        border: 1px solid var(--navy) !important;
+        border-radius: 12px;
+    }
+    [data-testid="stAlert"] * { color: var(--navy) !important; }
+
+    [data-testid="stExpander"] {
+        background: #fff !important;
+        border: 1px solid var(--border) !important;
+        border-radius: 10px;
+    }
+    [data-testid="stExpander"] * { overflow-wrap: anywhere; }
+
+    /* Chat Input Fixes */
+    [data-testid="stBottom"] {
+        background: linear-gradient(transparent, var(--bg) 18%) !important;
+    }
+    [data-testid="stBottom"] > div,
+    [data-testid="stBottomBlockContainer"] {
+        background: var(--bg) !important;
+    }
+    [data-testid="stChatInput"] {
+        width: 100% !important;
+        max-width: 900px !important;
+        margin-inline: auto !important;
+    }
+    [data-testid="stChatInput"] > div {
+        background: #fff !important;
+        border: 1.5px solid var(--navy) !important;
+        border-radius: 16px !important;
+    }
+    [data-testid="stChatInput"] textarea {
+        background: #fff !important;
+        color: var(--text) !important;
+        font-family: 'Vazirmatn', Tahoma, sans-serif !important;
+        font-size: 16px !important;
+        line-height: 1.8 !important;
+    }
+
+    [data-testid="stMarkdownContainer"] table {
+        display: block;
+        max-width: 100%;
+        overflow-x: auto;
+    }
+    [data-testid="stMarkdownContainer"] pre,
+    [data-testid="stMarkdownContainer"] code {
+        max-width: 100%;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+    }
+
     .disclaimer {
         color: #6B7280;
-        font-size: .75rem;
-        text-align: center !important;
+        font-size: .78rem;
+        line-height: 1.9;
+        text-align: center;
         border-top: 1px solid var(--border);
         padding-top: .8rem;
         margin-top: 1.5rem;
     }
 
-    /* -------------------------------------------------- */
-    /* تنظیمات مخصوص موبایل (Responsive Fixes) */
-    /* -------------------------------------------------- */
+    /* Mobile Responsive Optimizations */
+    @media (max-width: 768px) {
+        [data-testid="stMainBlockContainer"] {
+            padding: .85rem .75rem 6.5rem !important;
+        }
+        [data-testid="stSidebar"] {
+            width: min(85vw, 300px) !important;
+            min-width: min(85vw, 300px) !important;
+        }
+        .stButton > button, .stDownloadButton > button {
+            min-height: 46px;
+            font-size: .88rem;
+        }
+    }
+
     @media (max-width: 600px) {
         [data-testid="stMainBlockContainer"] {
-            padding: .5rem .5rem 6.5rem .5rem !important;
+            padding: .65rem .5rem 6.25rem !important;
         }
-
         .uni-header {
-            padding: .9rem;
+            padding: 1rem .85rem;
+            margin-bottom: .8rem;
             border-radius: 10px;
         }
-
         .uni-header h1 {
             font-size: 1.05rem;
         }
-
-        .uni-header p {
-            font-size: .78rem;
-        }
-
-        /* تبدیل ستون‌های نمونه سوال به تک‌ستونی در موبایل */
         [data-testid="stHorizontalBlock"] {
-            flex-direction: column !important;
-            gap: .4rem !important;
+            flex-wrap: wrap !important;
+            gap: .5rem !important;
         }
-
         [data-testid="stHorizontalBlock"] > [data-testid="column"] {
-            width: 100% !important;
             min-width: 100% !important;
-        }
-
-        /* اصلاح عرض سایدبار بازشده در موبایل */
-        [data-testid="stSidebar"] {
-            width: 80vw !important;
+            flex: 1 1 100% !important;
         }
     }
     </style>
