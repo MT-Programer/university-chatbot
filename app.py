@@ -345,6 +345,128 @@ st.markdown(
             padding: 0.6rem 0.5rem;
         }
     }
+
+
+    /* بازنویسی نهایی رفتار واکنش‌گرا در DOM نسخه‌های مختلف Streamlit */
+    [data-testid="stAppViewContainer"] { min-width: 0; }
+    [data-testid="stMain"] { min-width: 0; width: 100%; }
+    [data-testid="stMainBlockContainer"] {
+        width: min(100%, 1120px) !important;
+        margin-inline: auto !important;
+        min-width: 0 !important;
+    }
+    [data-testid="stVerticalBlock"],
+    [data-testid="stHorizontalBlock"],
+    [data-testid="column"],
+    [data-testid="stChatMessage"] > div {
+        min-width: 0 !important;
+    }
+    [data-testid="stMarkdownContainer"] { min-width: 0; }
+    [data-testid="stMarkdownContainer"] img,
+    [data-testid="stMarkdownContainer"] video,
+    [data-testid="stMarkdownContainer"] iframe {
+        max-width: 100% !important;
+    }
+    [data-testid="stMarkdownContainer"] table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+    }
+    [data-testid="stChatMessage"] {
+        display: flex;
+        align-items: flex-start;
+        gap: .5rem;
+    }
+    [data-testid="stChatMessage"] > div:last-child { flex: 1 1 auto; }
+
+    /* تبلت */
+    @media screen and (max-width: 992px) {
+        [data-testid="stMainBlockContainer"] {
+            width: 100% !important;
+            max-width: 100% !important;
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+        }
+        [data-testid="stSidebar"] { min-width: 0 !important; }
+    }
+
+    /* گوشی: هر ستون و کنترل تمام‌عرض، بدون اتکا به عرض inline استریم‌لیت */
+    @media screen and (max-width: 768px) {
+        [data-testid="stMainBlockContainer"] {
+            padding: .7rem .65rem 5.5rem !important;
+        }
+        [data-testid="stHorizontalBlock"] {
+            display: flex !important;
+            flex-direction: column !important;
+            flex-wrap: nowrap !important;
+            align-items: stretch !important;
+            gap: .55rem !important;
+            width: 100% !important;
+        }
+        [data-testid="stHorizontalBlock"] > [data-testid="column"] {
+            display: block !important;
+            flex: 1 1 auto !important;
+            width: 100% !important;
+            min-width: 100% !important;
+            max-width: 100% !important;
+        }
+        .uni-header {
+            padding: .9rem .85rem !important;
+            margin: 0 0 .8rem !important;
+            border-radius: 9px !important;
+        }
+        .uni-header h1 {
+            font-size: 1.05rem !important;
+            line-height: 1.8 !important;
+        }
+        .uni-header p {
+            font-size: .78rem !important;
+            line-height: 1.9 !important;
+        }
+        [data-testid="stChatMessage"] {
+            padding: .65rem .6rem !important;
+            margin-bottom: .55rem !important;
+            gap: .35rem !important;
+        }
+        [data-testid="stChatMessage"] p,
+        [data-testid="stChatMessage"] li {
+            font-size: .9rem !important;
+            line-height: 1.9 !important;
+        }
+        .stButton, .stDownloadButton,
+        .stButton > button, .stDownloadButton > button {
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+        .stButton > button, .stDownloadButton > button {
+            min-height: 44px !important;
+            white-space: normal !important;
+            font-size: .86rem !important;
+        }
+        [data-testid="stChatInput"] {
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+        [data-testid="stChatInput"] textarea {
+            font-size: 16px !important;
+            line-height: 1.7 !important;
+        }
+        [data-testid="stBottom"] {
+            padding-left: .5rem !important;
+            padding-right: .5rem !important;
+        }
+        .disclaimer { font-size: .68rem !important; line-height: 1.9 !important; }
+    }
+
+    @media screen and (max-width: 380px) {
+        [data-testid="stMainBlockContainer"] {
+            padding-left: .45rem !important;
+            padding-right: .45rem !important;
+        }
+        .uni-header h1 { font-size: .98rem !important; }
+        [data-testid="stChatMessage"] { padding: .55rem .45rem !important; }
+    }
+
     </style>
     """,
     unsafe_allow_html=True,
