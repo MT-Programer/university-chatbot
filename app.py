@@ -6,7 +6,7 @@ import streamlit as st
 st.set_page_config(
     page_title="سامانه پاسخگوی آموزشی دانشگاه",
     page_icon="🎓",
-    layout="centered",
+    layout="wide",
 )
 
 # --------------------------------------------------
@@ -164,6 +164,186 @@ st.markdown(
         font-size: 0.78rem; color: #6B7280; text-align: center;
         border-top: 1px solid var(--border);
         padding-top: 10px; margin-top: 24px;
+    }
+
+    /* --------------------------------------------------
+       چیدمان واکنش‌گرا برای دسکتاپ، تبلت و موبایل
+       -------------------------------------------------- */
+    *, *::before, *::after {
+        box-sizing: border-box;
+    }
+
+    html, body, [data-testid="stAppViewContainer"], .stApp {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: hidden;
+    }
+
+    /* عرض خوانا در نمایشگرهای بزرگ */
+    [data-testid="stMainBlockContainer"] {
+        width: 100%;
+        max-width: 1120px;
+        padding-left: clamp(1rem, 3vw, 2.5rem);
+        padding-right: clamp(1rem, 3vw, 2.5rem);
+        padding-top: clamp(1rem, 2.5vw, 2rem);
+        padding-bottom: 2rem;
+    }
+
+    .uni-header {
+        width: 100%;
+        overflow-wrap: anywhere;
+    }
+
+    .uni-header h1 {
+        font-size: clamp(1.15rem, 2.2vw, 1.65rem);
+        line-height: 1.65;
+    }
+
+    .uni-header p {
+        font-size: clamp(0.82rem, 1.2vw, 0.95rem);
+        line-height: 1.9;
+    }
+
+    [data-testid="stChatMessage"] {
+        width: 100%;
+        min-width: 0;
+        overflow-wrap: anywhere;
+        word-break: normal;
+    }
+
+    [data-testid="stChatMessage"] [data-testid="stMarkdownContainer"],
+    [data-testid="stChatMessage"] p,
+    [data-testid="stChatMessage"] li,
+    [data-testid="stExpander"] {
+        overflow-wrap: anywhere;
+        word-break: normal;
+    }
+
+    /* جدول‌ها، کدها و متن‌های طولانی باعث اسکرول افقی نشوند */
+    [data-testid="stMarkdownContainer"] table,
+    [data-testid="stDataFrame"],
+    [data-testid="stTable"] {
+        max-width: 100%;
+    }
+
+    [data-testid="stMarkdownContainer"] pre,
+    [data-testid="stMarkdownContainer"] code {
+        max-width: 100%;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+    }
+
+    [data-testid="stChatInput"],
+    [data-testid="stChatInput"] > div,
+    [data-testid="stChatInput"] textarea {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .stButton > button,
+    .stDownloadButton > button {
+        min-height: 2.65rem;
+        height: auto;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        line-height: 1.6;
+        padding: 0.55rem 0.8rem;
+    }
+
+    /* تبلت و موبایل افقی */
+    @media (max-width: 900px) {
+        [data-testid="stMainBlockContainer"] {
+            max-width: 100%;
+            padding-left: 1.1rem;
+            padding-right: 1.1rem;
+        }
+
+        .uni-header {
+            padding: 1.1rem 1.25rem;
+            border-radius: 10px;
+        }
+
+        [data-testid="stChatMessage"] {
+            padding: 0.8rem 0.9rem;
+        }
+    }
+
+    /* موبایل */
+    @media (max-width: 640px) {
+        [data-testid="stMainBlockContainer"] {
+            padding: 0.75rem 0.7rem 1.5rem;
+        }
+
+        .uni-header {
+            padding: 0.95rem 0.9rem;
+            margin-bottom: 0.9rem;
+            border-bottom-width: 3px;
+        }
+
+        .uni-header h1 {
+            font-size: 1.12rem;
+            line-height: 1.7;
+        }
+
+        .uni-header p {
+            font-size: 0.78rem;
+            line-height: 1.8;
+        }
+
+        [data-testid="stChatMessage"] {
+            padding: 0.7rem 0.65rem;
+            margin-bottom: 0.65rem;
+            border-radius: 9px;
+        }
+
+        /* نمونه‌سؤال‌های دو ستونه در موبایل زیر هم قرار می‌گیرند */
+        [data-testid="stHorizontalBlock"] {
+            flex-wrap: wrap !important;
+            gap: 0.45rem !important;
+        }
+
+        [data-testid="stHorizontalBlock"] > [data-testid="column"] {
+            flex: 1 1 100% !important;
+            width: 100% !important;
+            min-width: 100% !important;
+        }
+
+        .stButton > button,
+        .stDownloadButton > button {
+            min-height: 2.8rem;
+            font-size: 0.88rem;
+        }
+
+        [data-testid="stChatInput"] textarea {
+            font-size: 16px !important; /* جلوگیری از بزرگ‌نمایی خودکار در iOS */
+        }
+
+        .disclaimer {
+            font-size: 0.7rem;
+            line-height: 1.9;
+            margin-top: 1.25rem;
+        }
+
+        [data-testid="stSidebar"] {
+            min-width: min(85vw, 20rem);
+            max-width: 85vw;
+        }
+    }
+
+    /* موبایل باریک */
+    @media (max-width: 380px) {
+        [data-testid="stMainBlockContainer"] {
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+        }
+
+        .uni-header h1 {
+            font-size: 1rem;
+        }
+
+        [data-testid="stChatMessage"] {
+            padding: 0.6rem 0.5rem;
+        }
     }
     </style>
     """,
