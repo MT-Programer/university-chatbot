@@ -7,15 +7,17 @@ st.set_page_config(
     page_title="سامانه پاسخگوی آموزشی دانشگاه",
     page_icon="🎓",
     layout="wide",
+    initial_sidebar_state="collapsed",
 )
 
 # --------------------------------------------------
 # تم رسمی (سرمه‌ای + طلایی) و راست‌چین
 # --------------------------------------------------
+
 st.markdown(
     """
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;600;700&display=swap');
 
     :root {
         --navy: #1F3A5F;
@@ -23,209 +25,164 @@ st.markdown(
         --gold: #B8962E;
         --bg: #F5F7FA;
         --border: #D9DEE7;
+        --text: #1F2937;
     }
 
-    html, body, .stApp, .stMarkdown, .stChatMessage, textarea, button {
-        font-family: 'Vazirmatn', Tahoma, sans-serif !important;
-        direction: rtl;
-        text-align: right;
-    }
-
-    .stApp { background-color: var(--bg); }
-
-    /* هدر رسمی */
-    .uni-header {
-        background: linear-gradient(135deg, var(--navy-dark), var(--navy));
-        border-bottom: 4px solid var(--gold);
-        border-radius: 10px;
-        padding: 22px 26px;
-        margin-bottom: 18px;
-        color: #fff;
-    }
-    .uni-header h1 {
-        color: #fff; font-size: 1.5rem; margin: 0 0 6px 0; padding: 0;
-    }
-    .uni-header p { color: #D8E1EE; margin: 0; font-size: 0.9rem; }
-
-    /* حباب پیام‌ها */
-    [data-testid="stChatMessage"] {
-        background: #fff;
-        border: 1px solid var(--border);
-        border-radius: 10px;
-        padding: 12px 16px;
-        margin-bottom: 10px;
-    }
-
-    /* سایدبار */
-    [data-testid="stSidebar"] {
-        background-color: #fff;
-        border-left: 3px solid var(--gold);
-    }
-    [data-testid="stSidebar"] h1,
-    [data-testid="stSidebar"] h2,
-    [data-testid="stSidebar"] h3 {
-        color: var(--navy) !important;
-    }
-    [data-testid="stSidebar"] p,
-    [data-testid="stSidebar"] li,
-    [data-testid="stSidebar"] span,
-    [data-testid="stSidebar"] label,
-    [data-testid="stSidebar"] div[data-testid="stMarkdownContainer"] {
-        color: #1F2937 !important;
-    }
-    /* متن داخل دکمه‌های سایدبار */
-    [data-testid="stSidebar"] .stButton > button p,
-    [data-testid="stSidebar"] .stDownloadButton > button p {
-        color: inherit !important;
-    }
-    [data-testid="stSidebar"] .stButton > button:hover,
-    [data-testid="stSidebar"] .stDownloadButton > button:hover {
-        color: #fff !important;
-    }
-    [data-testid="stSidebar"] .stButton > button:hover p,
-    [data-testid="stSidebar"] .stDownloadButton > button:hover p {
-        color: #fff !important;
-    }
-    [data-testid="stSidebar"] .stButton > button,
-    [data-testid="stSidebar"] .stDownloadButton > button {
-        color: var(--navy) !important;
-    }
-
-    /* دکمه‌ها */
-    .stButton > button, .stDownloadButton > button {
-        background: #fff;
-        color: var(--navy);
-        border: 1px solid var(--navy);
-        border-radius: 8px;
-        width: 100%;
-        transition: all 0.15s;
-    }
-    .stButton > button:hover, .stDownloadButton > button:hover {
-        background: var(--navy);
-        color: #fff;
-        border-color: var(--navy);
-    }
-
-    /* ---- رنگ‌های اجباری صفحه اصلی (مستقل از تم تیره/روشن) ---- */
-    [data-testid="stChatMessage"],
-    [data-testid="stChatMessage"] * {
-        color: #1F2937 !important;
-    }
-
-    [data-testid="stExpander"] {
-        background: #fff !important;
-        border: 1px solid var(--border) !important;
-        border-radius: 8px;
-    }
-    [data-testid="stExpander"] summary,
-    [data-testid="stExpander"] summary *,
-    [data-testid="stExpander"] [data-testid="stMarkdownContainer"] *,
-    [data-testid="stExpander"] pre,
-    [data-testid="stExpander"] pre * {
-        color: #1F2937 !important;
-        background: transparent !important;
-    }
-
-    [data-testid="stAlert"] {
-        background: #EAF0F8 !important;
-        border: 1px solid var(--navy) !important;
-    }
-    [data-testid="stAlert"] * { color: var(--navy) !important; }
-
-    [data-testid="stBottom"] > div,
-    [data-testid="stBottomBlockContainer"] {
-        background: var(--bg) !important;
-    }
-    [data-testid="stChatInput"] textarea {
-        background: #fff !important;
-        color: #1F2937 !important;
-    }
-    [data-testid="stChatInput"] > div {
-        background: #fff !important;
-        border: 1px solid var(--navy) !important;
-    }
-
-    .stButton > button p,
-    .stDownloadButton > button p {
-        color: inherit !important;
-    }
-    .stButton > button,
-    .stDownloadButton > button {
-        color: var(--navy) !important;
-    }
-    .stButton > button:hover,
-    .stDownloadButton > button:hover,
-    .stButton > button:hover p,
-    .stDownloadButton > button:hover p {
-        color: #fff !important;
-    }
-
-    .disclaimer {
-        font-size: 0.78rem; color: #6B7280; text-align: center;
-        border-top: 1px solid var(--border);
-        padding-top: 10px; margin-top: 24px;
-    }
-
-    /* --------------------------------------------------
-       چیدمان واکنش‌گرا برای دسکتاپ، تبلت و موبایل
-       -------------------------------------------------- */
-    *, *::before, *::after {
-        box-sizing: border-box;
-    }
+    *, *::before, *::after { box-sizing: border-box; }
 
     html, body, [data-testid="stAppViewContainer"], .stApp {
         width: 100%;
         max-width: 100%;
-        overflow-x: hidden;
+        min-width: 0;
+        overflow-x: clip;
+        font-family: 'Vazirmatn', Tahoma, sans-serif !important;
     }
 
-    /* عرض خوانا در نمایشگرهای بزرگ */
+    .stApp { background: var(--bg); }
+    p, li, label, input, textarea, button,
+    [data-testid="stMarkdownContainer"] {
+        font-family: 'Vazirmatn', Tahoma, sans-serif !important;
+        text-align: right;
+    }
+
+    /* Main: centered conversation column, full width on phones */
+    [data-testid="stMain"] { min-width: 0; width: 100%; }
     [data-testid="stMainBlockContainer"] {
-        width: 100%;
-        max-width: 1120px;
-        padding-left: clamp(1rem, 3vw, 2.5rem);
-        padding-right: clamp(1rem, 3vw, 2.5rem);
-        padding-top: clamp(1rem, 2.5vw, 2rem);
-        padding-bottom: 2rem;
+        width: 100% !important;
+        max-width: 900px !important;
+        min-width: 0 !important;
+        margin-inline: auto !important;
+        padding: 1.5rem clamp(.75rem, 3vw, 2rem) 7rem !important;
     }
 
     .uni-header {
         width: 100%;
+        min-width: 0;
+        background: linear-gradient(135deg, var(--navy-dark), var(--navy));
+        border-bottom: 4px solid var(--gold);
+        border-radius: 14px;
+        padding: 1.35rem 1.5rem;
+        margin: 0 0 1.25rem;
+        color: #fff;
         overflow-wrap: anywhere;
     }
-
     .uni-header h1 {
-        font-size: clamp(1.15rem, 2.2vw, 1.65rem);
-        line-height: 1.65;
+        color: #fff !important;
+        font-size: clamp(1.15rem, 2.5vw, 1.55rem);
+        line-height: 1.7;
+        margin: 0 0 .35rem;
     }
-
     .uni-header p {
-        font-size: clamp(0.82rem, 1.2vw, 0.95rem);
+        color: #D8E1EE !important;
+        font-size: .92rem;
         line-height: 1.9;
+        margin: 0;
     }
 
     [data-testid="stChatMessage"] {
         width: 100%;
         min-width: 0;
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 1rem 1.1rem;
+        margin: 0 0 .85rem;
+        color: var(--text) !important;
         overflow-wrap: anywhere;
-        word-break: normal;
     }
-
-    [data-testid="stChatMessage"] [data-testid="stMarkdownContainer"],
+    [data-testid="stChatMessage"] * {
+        color: var(--text) !important;
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
     [data-testid="stChatMessage"] p,
-    [data-testid="stChatMessage"] li,
-    [data-testid="stExpander"] {
+    [data-testid="stChatMessage"] li {
+        line-height: 1.95;
+    }
+
+    /* Native Streamlit sidebar behaves like a collapsible drawer */
+    [data-testid="stSidebar"] {
+        background: #fff;
+        border-left: 3px solid var(--gold);
+        min-width: 0;
+    }
+    [data-testid="stSidebar"] h1,
+    [data-testid="stSidebar"] h2,
+    [data-testid="stSidebar"] h3,
+    [data-testid="stSidebar"] p,
+    [data-testid="stSidebar"] li,
+    [data-testid="stSidebar"] span,
+    [data-testid="stSidebar"] label {
+        color: var(--text) !important;
+        font-family: 'Vazirmatn', Tahoma, sans-serif !important;
+    }
+
+    .stButton > button, .stDownloadButton > button {
+        width: 100%;
+        min-height: 44px;
+        height: auto;
+        white-space: normal;
         overflow-wrap: anywhere;
-        word-break: normal;
+        line-height: 1.7;
+        padding: .65rem .85rem;
+        background: #fff;
+        color: var(--navy) !important;
+        border: 1px solid var(--navy);
+        border-radius: 10px;
+        font-family: 'Vazirmatn', Tahoma, sans-serif !important;
+    }
+    .stButton > button:hover, .stDownloadButton > button:hover {
+        background: var(--navy);
+        color: #fff !important;
+        border-color: var(--navy);
+    }
+    .stButton > button p, .stDownloadButton > button p { color: inherit !important; }
+
+    [data-testid="stAlert"] {
+        background: #EAF0F8 !important;
+        border: 1px solid var(--navy) !important;
+        border-radius: 12px;
+    }
+    [data-testid="stAlert"] * { color: var(--navy) !important; }
+
+    [data-testid="stExpander"] {
+        background: #fff !important;
+        border: 1px solid var(--border) !important;
+        border-radius: 10px;
+    }
+    [data-testid="stExpander"] * { overflow-wrap: anywhere; }
+
+    /* Chat composer: keep it usable and full-width */
+    [data-testid="stBottom"] {
+        background: linear-gradient(transparent, var(--bg) 18%) !important;
+    }
+    [data-testid="stBottom"] > div,
+    [data-testid="stBottomBlockContainer"] {
+        background: var(--bg) !important;
+    }
+    [data-testid="stChatInput"] {
+        width: 100% !important;
+        max-width: 900px !important;
+        margin-inline: auto !important;
+    }
+    [data-testid="stChatInput"] > div {
+        background: #fff !important;
+        border: 1.5px solid var(--navy) !important;
+        border-radius: 16px !important;
+    }
+    [data-testid="stChatInput"] textarea {
+        background: #fff !important;
+        color: var(--text) !important;
+        font-family: 'Vazirmatn', Tahoma, sans-serif !important;
+        font-size: 16px !important;
+        line-height: 1.8 !important;
     }
 
-    /* جدول‌ها، کدها و متن‌های طولانی باعث اسکرول افقی نشوند */
-    [data-testid="stMarkdownContainer"] table,
-    [data-testid="stDataFrame"],
-    [data-testid="stTable"] {
+    [data-testid="stMarkdownContainer"] table {
+        display: block;
         max-width: 100%;
+        overflow-x: auto;
     }
-
     [data-testid="stMarkdownContainer"] pre,
     [data-testid="stMarkdownContainer"] code {
         max-width: 100%;
@@ -233,244 +190,102 @@ st.markdown(
         overflow-wrap: anywhere;
     }
 
-    [data-testid="stChatInput"],
-    [data-testid="stChatInput"] > div,
-    [data-testid="stChatInput"] textarea {
-        width: 100%;
-        max-width: 100%;
+    .disclaimer {
+        color: #6B7280;
+        font-size: .78rem;
+        line-height: 1.9;
+        text-align: center;
+        border-top: 1px solid var(--border);
+        padding-top: .8rem;
+        margin-top: 1.5rem;
     }
 
-    .stButton > button,
-    .stDownloadButton > button {
-        min-height: 2.65rem;
-        height: auto;
-        white-space: normal;
-        overflow-wrap: anywhere;
-        line-height: 1.6;
-        padding: 0.55rem 0.8rem;
-    }
-
-    /* تبلت و موبایل افقی */
-    @media (max-width: 900px) {
+    /* Tablet */
+    @media (max-width: 768px) {
         [data-testid="stMainBlockContainer"] {
-            max-width: 100%;
-            padding-left: 1.1rem;
-            padding-right: 1.1rem;
+            max-width: 100% !important;
+            padding: .85rem .85rem 6.5rem !important;
         }
-
         .uni-header {
-            padding: 1.1rem 1.25rem;
-            border-radius: 10px;
+            padding: 1rem 1.05rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
         }
-
         [data-testid="stChatMessage"] {
-            padding: 0.8rem 0.9rem;
+            padding: .8rem .85rem;
+            border-radius: 12px;
         }
     }
 
-    /* موبایل */
-    @media (max-width: 640px) {
+    /* Phones */
+    @media (max-width: 600px) {
         [data-testid="stMainBlockContainer"] {
-            padding: 0.75rem 0.7rem 1.5rem;
+            padding: .65rem .65rem 6.25rem !important;
         }
-
         .uni-header {
-            padding: 0.95rem 0.9rem;
-            margin-bottom: 0.9rem;
+            padding: .85rem .85rem;
+            margin-bottom: .8rem;
+            border-radius: 10px;
             border-bottom-width: 3px;
         }
-
         .uni-header h1 {
-            font-size: 1.12rem;
-            line-height: 1.7;
-        }
-
-        .uni-header p {
-            font-size: 0.78rem;
+            font-size: 1.05rem;
             line-height: 1.8;
         }
-
-        [data-testid="stChatMessage"] {
-            padding: 0.7rem 0.65rem;
-            margin-bottom: 0.65rem;
-            border-radius: 9px;
-        }
-
-        /* نمونه‌سؤال‌های دو ستونه در موبایل زیر هم قرار می‌گیرند */
-        [data-testid="stHorizontalBlock"] {
-            flex-wrap: wrap !important;
-            gap: 0.45rem !important;
-        }
-
-        [data-testid="stHorizontalBlock"] > [data-testid="column"] {
-            flex: 1 1 100% !important;
-            width: 100% !important;
-            min-width: 100% !important;
-        }
-
-        .stButton > button,
-        .stDownloadButton > button {
-            min-height: 2.8rem;
-            font-size: 0.88rem;
-        }
-
-        [data-testid="stChatInput"] textarea {
-            font-size: 16px !important; /* جلوگیری از بزرگ‌نمایی خودکار در iOS */
-        }
-
-        .disclaimer {
-            font-size: 0.7rem;
-            line-height: 1.9;
-            margin-top: 1.25rem;
-        }
-
-        [data-testid="stSidebar"] {
-            min-width: min(85vw, 20rem);
-            max-width: 85vw;
-        }
-    }
-
-    /* موبایل باریک */
-    @media (max-width: 380px) {
-        [data-testid="stMainBlockContainer"] {
-            padding-left: 0.5rem;
-            padding-right: 0.5rem;
-        }
-
-        .uni-header h1 {
-            font-size: 1rem;
-        }
-
-        [data-testid="stChatMessage"] {
-            padding: 0.6rem 0.5rem;
-        }
-    }
-
-
-    /* بازنویسی نهایی رفتار واکنش‌گرا در DOM نسخه‌های مختلف Streamlit */
-    [data-testid="stAppViewContainer"] { min-width: 0; }
-    [data-testid="stMain"] { min-width: 0; width: 100%; }
-    [data-testid="stMainBlockContainer"] {
-        width: min(100%, 1120px) !important;
-        margin-inline: auto !important;
-        min-width: 0 !important;
-    }
-    [data-testid="stVerticalBlock"],
-    [data-testid="stHorizontalBlock"],
-    [data-testid="column"],
-    [data-testid="stChatMessage"] > div {
-        min-width: 0 !important;
-    }
-    [data-testid="stMarkdownContainer"] { min-width: 0; }
-    [data-testid="stMarkdownContainer"] img,
-    [data-testid="stMarkdownContainer"] video,
-    [data-testid="stMarkdownContainer"] iframe {
-        max-width: 100% !important;
-    }
-    [data-testid="stMarkdownContainer"] table {
-        display: block;
-        width: 100%;
-        overflow-x: auto;
-    }
-    [data-testid="stChatMessage"] {
-        display: flex;
-        align-items: flex-start;
-        gap: .5rem;
-    }
-    [data-testid="stChatMessage"] > div:last-child { flex: 1 1 auto; }
-
-    /* تبلت */
-    @media screen and (max-width: 992px) {
-        [data-testid="stMainBlockContainer"] {
-            width: 100% !important;
-            max-width: 100% !important;
-            padding-left: 1rem !important;
-            padding-right: 1rem !important;
-        }
-        [data-testid="stSidebar"] { min-width: 0 !important; }
-    }
-
-    /* گوشی: هر ستون و کنترل تمام‌عرض، بدون اتکا به عرض inline استریم‌لیت */
-    @media screen and (max-width: 768px) {
-        [data-testid="stMainBlockContainer"] {
-            padding: .7rem .65rem 5.5rem !important;
-        }
-        [data-testid="stHorizontalBlock"] {
-            display: flex !important;
-            flex-direction: column !important;
-            flex-wrap: nowrap !important;
-            align-items: stretch !important;
-            gap: .55rem !important;
-            width: 100% !important;
-        }
-        [data-testid="stHorizontalBlock"] > [data-testid="column"] {
-            display: block !important;
-            flex: 1 1 auto !important;
-            width: 100% !important;
-            min-width: 100% !important;
-            max-width: 100% !important;
-        }
-        .uni-header {
-            padding: .9rem .85rem !important;
-            margin: 0 0 .8rem !important;
-            border-radius: 9px !important;
-        }
-        .uni-header h1 {
-            font-size: 1.05rem !important;
-            line-height: 1.8 !important;
-        }
         .uni-header p {
-            font-size: .78rem !important;
-            line-height: 1.9 !important;
+            font-size: .78rem;
+            line-height: 1.85;
         }
         [data-testid="stChatMessage"] {
-            padding: .65rem .6rem !important;
-            margin-bottom: .55rem !important;
-            gap: .35rem !important;
+            padding: .7rem .65rem;
+            margin-bottom: .65rem;
+            border-radius: 11px;
         }
         [data-testid="stChatMessage"] p,
         [data-testid="stChatMessage"] li {
-            font-size: .9rem !important;
-            line-height: 1.9 !important;
+            font-size: .9rem;
+            line-height: 1.95;
         }
-        .stButton, .stDownloadButton,
+        /* Stack sample-question columns only; do not resize Streamlit's whole layout */
+        [data-testid="stHorizontalBlock"] {
+            flex-wrap: wrap !important;
+            gap: .5rem !important;
+        }
+        [data-testid="stHorizontalBlock"] > [data-testid="column"] {
+            min-width: 100% !important;
+            flex: 1 1 100% !important;
+        }
         .stButton > button, .stDownloadButton > button {
-            width: 100% !important;
-            max-width: 100% !important;
-        }
-        .stButton > button, .stDownloadButton > button {
-            min-height: 44px !important;
-            white-space: normal !important;
-            font-size: .86rem !important;
-        }
-        [data-testid="stChatInput"] {
-            width: 100% !important;
-            max-width: 100% !important;
+            min-height: 46px;
+            font-size: .88rem;
+            border-radius: 10px;
         }
         [data-testid="stChatInput"] textarea {
             font-size: 16px !important;
-            line-height: 1.7 !important;
         }
-        [data-testid="stBottom"] {
-            padding-left: .5rem !important;
-            padding-right: .5rem !important;
+        .disclaimer {
+            font-size: .7rem;
+            line-height: 1.9;
+            margin-top: 1rem;
         }
-        .disclaimer { font-size: .68rem !important; line-height: 1.9 !important; }
+        [data-testid="stSidebar"] {
+            width: min(86vw, 340px) !important;
+            min-width: min(86vw, 340px) !important;
+        }
     }
 
-    @media screen and (max-width: 380px) {
+    @media (max-width: 360px) {
         [data-testid="stMainBlockContainer"] {
             padding-left: .45rem !important;
             padding-right: .45rem !important;
         }
-        .uni-header h1 { font-size: .98rem !important; }
-        [data-testid="stChatMessage"] { padding: .55rem .45rem !important; }
+        .uni-header h1 { font-size: .98rem; }
     }
-
     </style>
     """,
     unsafe_allow_html=True,
 )
+
 
 
 # --------------------------------------------------
