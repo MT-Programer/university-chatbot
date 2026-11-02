@@ -11,7 +11,7 @@ st.set_page_config(
 )
 
 # --------------------------------------------------
-# تم رسمی (سرمه‌ای + طلایی) و راست‌چین
+# تم رسمی (سرمه‌ای + طلایی)، راست‌چین و کاملاً رسپانسیو
 # --------------------------------------------------
 
 st.markdown(
@@ -34,7 +34,7 @@ st.markdown(
         width: 100%;
         max-width: 100%;
         min-width: 0;
-        overflow-x: clip;
+        overflow-x: hidden;
         font-family: 'Vazirmatn', Tahoma, sans-serif !important;
     }
 
@@ -45,14 +45,14 @@ st.markdown(
         text-align: right;
     }
 
-    /* Main: centered conversation column, full width on phones */
+    /* Main Container: Centered Layout */
     [data-testid="stMain"] { min-width: 0; width: 100%; }
     [data-testid="stMainBlockContainer"] {
         width: 100% !important;
         max-width: 900px !important;
         min-width: 0 !important;
         margin-inline: auto !important;
-        padding: 1.5rem clamp(.75rem, 3vw, 2rem) 7rem !important;
+        padding: 1.5rem 1rem 7rem !important;
     }
 
     .uni-header {
@@ -68,7 +68,7 @@ st.markdown(
     }
     .uni-header h1 {
         color: #fff !important;
-        font-size: clamp(1.15rem, 2.5vw, 1.55rem);
+        font-size: clamp(1.1rem, 2.5vw, 1.55rem);
         line-height: 1.7;
         margin: 0 0 .35rem;
     }
@@ -79,6 +79,7 @@ st.markdown(
         margin: 0;
     }
 
+    /* Chat Messages */
     [data-testid="stChatMessage"] {
         width: 100%;
         min-width: 0;
@@ -100,10 +101,19 @@ st.markdown(
         line-height: 1.95;
     }
 
-    /* RTL layout: place the native sidebar drawer on the RIGHT */
-    [data-testid="stAppViewContainer"] {
+    /* RTL Support for App Base & Chat */
+    [data-testid="stAppViewContainer"],
+    [data-testid="stMain"],
+    [data-testid="stMainBlockContainer"],
+    [data-testid="stChatMessage"],
+    [data-testid="stChatMessage"] [data-testid="stMarkdownContainer"],
+    [data-testid="stChatMessage"] p,
+    [data-testid="stChatMessage"] li {
         direction: rtl !important;
+        text-align: right !important;
     }
+
+    /* Sidebar RTL Fixes & Drawer Behavior */
     [data-testid="stSidebar"] {
         direction: rtl !important;
         right: 0 !important;
@@ -111,6 +121,7 @@ st.markdown(
         border-left: 0 !important;
         border-right: 3px solid var(--gold) !important;
         text-align: right !important;
+        background: #fff !important;
     }
     [data-testid="stSidebar"] > div:first-child {
         direction: rtl !important;
@@ -122,38 +133,15 @@ st.markdown(
     [data-testid="stSidebar"] h1,
     [data-testid="stSidebar"] h2,
     [data-testid="stSidebar"] h3,
-    [data-testid="stSidebar"] label {
+    [data-testid="stSidebar"] label,
+    [data-testid="stSidebar"] span {
         direction: rtl !important;
         text-align: right !important;
-    }
-    /* Keep chat messages and their content consistently right-to-left */
-    [data-testid="stMain"],
-    [data-testid="stMainBlockContainer"],
-    [data-testid="stChatMessage"],
-    [data-testid="stChatMessage"] [data-testid="stMarkdownContainer"],
-    [data-testid="stChatMessage"] p,
-    [data-testid="stChatMessage"] li {
-        direction: rtl !important;
-        text-align: right !important;
-    }
-
-    /* Native Streamlit sidebar behaves like a collapsible drawer */
-    [data-testid="stSidebar"] {
-        background: #fff;
-        border-left: 3px solid var(--gold);
-        min-width: 0;
-    }
-    [data-testid="stSidebar"] h1,
-    [data-testid="stSidebar"] h2,
-    [data-testid="stSidebar"] h3,
-    [data-testid="stSidebar"] p,
-    [data-testid="stSidebar"] li,
-    [data-testid="stSidebar"] span,
-    [data-testid="stSidebar"] label {
         color: var(--text) !important;
         font-family: 'Vazirmatn', Tahoma, sans-serif !important;
     }
 
+    /* Buttons Style */
     .stButton > button, .stDownloadButton > button {
         width: 100%;
         min-height: 44px;
@@ -189,7 +177,7 @@ st.markdown(
     }
     [data-testid="stExpander"] * { overflow-wrap: anywhere; }
 
-    /* Chat composer: keep it usable and full-width */
+    /* Chat Input Fixes */
     [data-testid="stBottom"] {
         background: linear-gradient(transparent, var(--bg) 18%) !important;
     }
@@ -237,53 +225,33 @@ st.markdown(
         margin-top: 1.5rem;
     }
 
-    /* Tablet */
+    /* Mobile Responsive Optimizations */
     @media (max-width: 768px) {
         [data-testid="stMainBlockContainer"] {
-            max-width: 100% !important;
-            padding: .85rem .85rem 6.5rem !important;
+            padding: .85rem .75rem 6.5rem !important;
         }
-        .uni-header {
-            padding: 1rem 1.05rem;
-            border-radius: 12px;
-            margin-bottom: 1rem;
+        [data-testid="stSidebar"] {
+            width: min(85vw, 300px) !important;
+            min-width: min(85vw, 300px) !important;
         }
-        [data-testid="stChatMessage"] {
-            padding: .8rem .85rem;
-            border-radius: 12px;
+        .stButton > button, .stDownloadButton > button {
+            min-height: 46px;
+            font-size: .88rem;
         }
     }
 
-    /* Phones */
     @media (max-width: 600px) {
         [data-testid="stMainBlockContainer"] {
-            padding: .65rem .65rem 6.25rem !important;
+            padding: .65rem .5rem 6.25rem !important;
         }
         .uni-header {
-            padding: .85rem .85rem;
+            padding: 1rem .85rem;
             margin-bottom: .8rem;
             border-radius: 10px;
-            border-bottom-width: 3px;
         }
         .uni-header h1 {
             font-size: 1.05rem;
-            line-height: 1.8;
         }
-        .uni-header p {
-            font-size: .78rem;
-            line-height: 1.85;
-        }
-        [data-testid="stChatMessage"] {
-            padding: .7rem .65rem;
-            margin-bottom: .65rem;
-            border-radius: 11px;
-        }
-        [data-testid="stChatMessage"] p,
-        [data-testid="stChatMessage"] li {
-            font-size: .9rem;
-            line-height: 1.95;
-        }
-        /* Stack sample-question columns only; do not resize Streamlit's whole layout */
         [data-testid="stHorizontalBlock"] {
             flex-wrap: wrap !important;
             gap: .5rem !important;
@@ -292,34 +260,6 @@ st.markdown(
             min-width: 100% !important;
             flex: 1 1 100% !important;
         }
-        .stButton > button, .stDownloadButton > button {
-            min-height: 46px;
-            font-size: .88rem;
-            border-radius: 10px;
-        }
-        [data-testid="stChatInput"] textarea {
-            font-size: 16px !important;
-        }
-        .disclaimer {
-            font-size: .7rem;
-            line-height: 1.9;
-            margin-top: 1rem;
-        }
-        [data-testid="stSidebar"] {
-            width: min(86vw, 340px) !important;
-            min-width: min(86vw, 340px) !important;
-            right: 0 !important;
-            left: auto !important;
-            direction: rtl !important;
-        }
-    }
-
-    @media (max-width: 360px) {
-        [data-testid="stMainBlockContainer"] {
-            padding-left: .45rem !important;
-            padding-right: .45rem !important;
-        }
-        .uni-header h1 { font-size: .98rem; }
     }
     </style>
     """,
@@ -327,15 +267,13 @@ st.markdown(
 )
 
 
-
 # --------------------------------------------------
 # بارگذاری یک‌بار مصرف RAG
 # --------------------------------------------------
 @st.cache_resource(show_spinner="در حال آماده‌سازی سامانه...")
 def load_rag():
-    import rag  # ماژول چت‌بات شما
+    import rag
 
-    # فقط اگر دیتابیس خالی بود، PDF ایندکس می‌شود
     if rag.vectorstore._collection.count() == 0:
         documents = rag.read_pdf_file(rag.PDF_PATH)
         chunks = rag.split_documents(documents)
@@ -354,7 +292,7 @@ except Exception as e:
 # --------------------------------------------------
 # توابع کمکی
 # --------------------------------------------------
-TOP_K = 3  # تعداد chunk ارسالی به مدل (ثابت و مخفی از کاربر)
+TOP_K = 3
 
 EXAMPLE_QUESTIONS = [
     "دروس نیمسال اول چیست؟",
@@ -371,7 +309,6 @@ def answer_question(query):
         return "اطلاعات مرتبطی پیدا نشد.", []
 
     context_parts = []
-
     for doc, distance in retrieved:
         context_parts.append(
             f"منبع: {doc.metadata.get('source', '?')}\n"
@@ -382,7 +319,6 @@ def answer_question(query):
     context = "\n\n---\n\n".join(context_parts)
     answer = rag.llm(query, context)
 
-    # فقط مرتبط‌ترین chunk به عنوان منبع نمایش داده می‌شود
     best_doc, _ = retrieved[0]
     sources = [
         {
@@ -474,7 +410,7 @@ st.markdown(
 )
 
 # --------------------------------------------------
-# دریافت ورودی (از کادر چت یا دکمه نمونه‌سؤال)
+# دریافت ورودی
 # --------------------------------------------------
 user_input = st.chat_input("سؤال خود را بنویسید...")
 prompt = user_input or st.session_state.pop("pending", None)
@@ -483,7 +419,7 @@ if prompt:
     st.session_state.messages.append({"role": "user", "content": prompt})
 
 # --------------------------------------------------
-# پیام خوشامدگویی (فقط وقتی گفتگو خالی است)
+# پیام خوشامدگویی
 # --------------------------------------------------
 if not st.session_state.messages:
     st.info("سلام! 👋 سؤال خود را بنویسید یا یکی از نمونه‌سؤال‌های زیر را انتخاب کنید.")
