@@ -100,43 +100,6 @@ st.markdown(
         line-height: 1.95;
     }
 
-    /* RTL layout: place the native sidebar drawer on the RIGHT */
-    [data-testid="stAppViewContainer"] {
-        direction: rtl !important;
-    }
-    [data-testid="stSidebar"] {
-        direction: rtl !important;
-        right: 0 !important;
-        left: auto !important;
-        border-left: 0 !important;
-        border-right: 3px solid var(--gold) !important;
-        text-align: right !important;
-    }
-    [data-testid="stSidebar"] > div:first-child {
-        direction: rtl !important;
-    }
-    [data-testid="stSidebar"] [data-testid="stMarkdownContainer"],
-    [data-testid="stSidebar"] .stMarkdown,
-    [data-testid="stSidebar"] p,
-    [data-testid="stSidebar"] li,
-    [data-testid="stSidebar"] h1,
-    [data-testid="stSidebar"] h2,
-    [data-testid="stSidebar"] h3,
-    [data-testid="stSidebar"] label {
-        direction: rtl !important;
-        text-align: right !important;
-    }
-    /* Keep chat messages and their content consistently right-to-left */
-    [data-testid="stMain"],
-    [data-testid="stMainBlockContainer"],
-    [data-testid="stChatMessage"],
-    [data-testid="stChatMessage"] [data-testid="stMarkdownContainer"],
-    [data-testid="stChatMessage"] p,
-    [data-testid="stChatMessage"] li {
-        direction: rtl !important;
-        text-align: right !important;
-    }
-
     /* Native Streamlit sidebar behaves like a collapsible drawer */
     [data-testid="stSidebar"] {
         background: #fff;
@@ -308,9 +271,6 @@ st.markdown(
         [data-testid="stSidebar"] {
             width: min(86vw, 340px) !important;
             min-width: min(86vw, 340px) !important;
-            right: 0 !important;
-            left: auto !important;
-            direction: rtl !important;
         }
     }
 
